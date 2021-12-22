@@ -1,0 +1,57 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "additionalProperties": false,
+    "properties": {
+        "error": {
+            "description": "Код ошибки",
+            "type": "number"
+        },
+        "error_text": {
+            "description": "Текст ошибки",
+            "type": "string"
+        },
+        "error_url": {
+            "description": "Ссылка на страницу ошибки",
+            "type": "string"
+        },
+        "response": {
+            "additionalProperties": false,
+            "properties": {
+                "count": {
+                    "description": "Количество ответов",
+                    "type": "number"
+                },
+                "items": {
+                    "description": "Список ответов",
+                    "items": {
+                        "$ref": "objects.json#/definitions/users/user_full",
+                        "type": "object"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "count",
+                "items"
+            ],
+            "type": "object"
+        },
+        "run_time": {
+            "description": "Время выполнения",
+            "type": "number"
+        },
+        "server_time": {
+            "description": "Время на сервере (UNIXTIME)",
+            "type": "number"
+        }
+    },
+    "required": [
+        "response",
+        "run_time",
+        "server_time",
+        "error",
+        "error_text",
+        "error_url"
+    ],
+    "type": "object"
+}

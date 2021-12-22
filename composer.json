@@ -1,0 +1,86 @@
+{
+    "name": "sarafanncom/sarafann",
+    "license": "proprietary",
+    "description": "SaraFann APP && API server",
+    "type": "project",
+    "authors": [
+        {
+            "name": "kaizer",
+            "email": "kaizer@kai-zer.ru"
+        }
+    ],
+    "require": {
+        "php": ">=7.4.0",
+        "ext-json": "*",
+        "ext-curl": "*",
+        "ext-dom": "*",
+        "ext-openssl": "*",
+        "ext-gd": "*",
+        "ext-iconv": "*",
+        "ext-libxml": "*",
+        "ext-simplexml": "*",
+        "ext-soap": "*",
+        "ext-zlib": "*",
+        "doctrine/dbal": "^2.9",
+        "firebase/php-jwt": "^5.0",
+        "giggsey/libphonenumber-for-php": "8.*",
+        "holystix/odnoklassniki-php-sdk": "dev-master",
+        "google/cloud-text-to-speech": "0.4.*",
+        "guzzlehttp/guzzle": "^6.4.1",
+        "jeremykendall/php-domain-parser": "5.5.*",
+        "nesbot/carbon": "^2.24.0",
+        "parsecsv/php-parsecsv": "^1.1",
+        "predis/predis": "1.1.*",
+        "sebastian-berc/repositories": "^1.0",
+        "sirian/yandex-market-language-parser": "^3.0",
+        "vearutop/php-obscene-censor-rus": "^1.0",
+        "voronkovich/sberbank-acquiring-client": "2.*",
+        "wapmorgan/morphos": "^3.2",
+        "yandex/geo": "^1.2.2",
+        "yandex/translate-api": "^1.5",
+        "bacon/bacon-qr-code": "^1.0",
+        "biscolab/google-maps-php-sdk": "^0.4.0",
+        "vlucas/phpdotenv": "4.*",
+        "illuminate/support": "7.4.*",
+        "illuminate/database": "7.4.*",
+        "nikic/fast-route": "^1.3",
+        "zendframework/zend-diactoros": "^2.2",
+        "rakit/validation": "^1.2",
+        "octoauth/oauth2-twitter-adapter": "^0.5.0",
+        "laminas/laminas-diactoros": "^2.2",
+        "monolog/monolog": "^2.0",
+        "illuminate/events": "7.4.*",
+        "robmorgan/phinx": "0.12.*",
+        "laravel/homestead": "^10.1",
+        "psy/psysh": "@stable",
+        "ext-gmp": "*",
+        "faisalman/simple-excel-php": "^0.3.15",
+        "socialiteproviders/apple": "^3.0",
+        "lcobucci/jwt": "^3.3",
+        "ramsey/uuid": "^4.0",
+        "web-token/jwt-framework": "^2.1",
+        "odan/phinx-migrations-generator": "^5.2",
+        "videlalvaro/php-amqplib": "^2.11",
+        "currencyfair/apple-sign-in-php-client": "^1.0"
+	},
+    "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.2",
+        "barryvdh/laravel-ide-helper": "^2.6",
+        "phpunit/phpunit": "^8"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Tests\\": "tests/"
+        },
+        "files": [
+            "app/helpers.php"
+        ]
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "scripts": {
+        "serve": "php -S 10.8.0.77:8080 -t public/",
+        "r": "composer require"
+    }
+}

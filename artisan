@@ -1,0 +1,91 @@
+#!/usr/bin/env php
+<?php
+    require_once 'vendor/autoload.php';
+
+    use App\Commands\Console;
+    use App\SaraFann;
+    use Illuminate\Support\Arr;
+
+    $commands = require_once './commands/commands.php';
+    function getAllFuncs($echo = false)
+    {
+        global $commands;
+        global $redis;
+        $singCommands = [];
+        foreach ($commands as $command) {
+            $cmd = new $command($redis);
+            $sig = explode(' ', $cmd->getSignature());
+            $signature = array_shift($sig);
+            $singCommands[$signature] = [
+                'class' => $cmd,
+                'args' => $sig,
+            ];
+        }
+        if ($echo) {
+            foreach ($singCommands as $signature => $singCommand) {
+                $c = new Console($redis);
+                if (0 === count($singCommand['args'])) {
+                    $line = sprintf(
+                        '%-55s',
+                        $signature
+                    );
+                } else {
+                    $argStr = '';
+                    foreach ($singCommand['args'] as $arg) {
+                        $arg = str_replace('{', '', str_replace('}', '', $arg));
+                        $argStr .= $arg.' ';
+                    }
+                    $line = sprintf(
+                        '%-50s%-25s',
+                        $signature,
+                        $argStr
+                    );
+                }
+                $c->info($line);
+            }
+        }
+
+        return $singCommands;
+    }
+    define('START_TIME', microtime(true));
+    if (!defined('TWO_WEEKS')) {
+        define('TWO_WEEKS', 1209600);
+    }
+    if (!defined('ONE_WEEK')) {
+        define('ONE_WEEK', 604800);
+    }
+
+    $application = new SaraFann();
+    global $redis;
+
+    $_ = array_shift($argv);
+    if (count($argv) < 1) {
+        $singCommands = getAllFuncs(true);
+        die();
+    }
+
+    $singCommands = getAllFuncs(false);
+
+    $currentCommand = array_shift($argv);
+    $commandClass = Arr::get($singCommands, $currentCommand, null);
+    if (null === $commandClass) {
+        $singCommands = getAllFuncs(true);
+        die();
+    }
+    $class = $commandClass['class'];
+    $arguments = [];
+    foreach ($argv as $arg) {
+        [$arg, $value] = explode('=', $arg, 2);
+        $arg = str_replace('--', '', $arg);
+        $arguments[$arg] = $value;
+    }
+    foreach ($commandClass['args'] as $arg) {
+        $argument = str_replace('{--', '', str_replace('=}', '', $arg));
+        $argument = Arr::get($arguments, $argument, null);
+        if (null === $argument) {
+            $arg = str_replace('{', '', str_replace('}', '', $arg));
+            die('No argument '.$arg."\n");
+        }
+    }
+    $class->params = $arguments;
+    $class->handle();

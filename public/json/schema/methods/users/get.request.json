@@ -1,0 +1,16 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "properties": {
+        "id": {
+            "description": "Идентификатор пользователя, или  разсделённый запятой",
+            "type": [
+                "integer",
+                "string"
+            ]
+        }
+    },
+    "required": [
+        "id"
+    ],
+    "type": "object"
+}

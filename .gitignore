@@ -1,0 +1,15 @@
+.env
+.env.*
+logs
+composer.lock
+vendor
+.idea
+cache.route.*
+.php_cs.cache
+env.txt
+.phpunit.result.cache
+.php_cs.dist
+.phplint-cache
+.phplint.yml
+phplint.cache
+daemons
